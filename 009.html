@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구조적 가상 선택자</title>
+    <style>
+      li :first-child {
+        border: 6px solid rgb(208, 208, 7);
+      }
+      li:last-child {
+        background-color: azure;
+      }
+      /* 괄호 안에는 숫자, 수식 모두 넣을 수 있다 */
+      li:nth-child(2n) {
+        background-color: pink;
+      }
+      li :not(.select) {
+        background-color: tomato;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ol>
+      <li>
+        첫
+        <div>아</div>
+        <div class="select">아</div>
+        <div>아</div>
+        <div>아</div>
+      </li>
+      <li>둘</li>
+      <li>셋</li>
+      <li>넷</li>
+      <li>다</li>
+    </ol>
+  </body>
+</html>
