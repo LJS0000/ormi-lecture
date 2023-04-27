@@ -1,0 +1,11 @@
+h1,
+p,
+span {
+  background-color: gray;
+  border: inherit;
+}
+
+div {
+  color: red;
+  border: 3px blanchedalmond solid;
+}
