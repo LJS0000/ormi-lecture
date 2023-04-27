@@ -5,8 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>css 우선 순위</title>
+    <style>
+      #priority {
+        color: blue;
+      }
+      p {
+        color: red;
+      }
+    </style>
   </head>
   <body>
-    스타일이 안나오면 적용됨 나가서 확인해보자
+    <p>
+      아랫줄에 있는 css 가 최종. 스타일이 안나오면 computed toggle 확인해보자
+    </p>
+    <p id="priority">
+      구체적일수록 우선적이다// inline>id>class>type(tag),가상 요소 선택자
+    </p>
   </body>
 </html>
