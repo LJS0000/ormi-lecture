@@ -125,11 +125,9 @@ let s = 0;
 data.forEach((v) => v < 5 && (s += v));
 
 // [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1']에서 모든 숫자를 다 더해주세요.
+// 1. 숫자만 더합니다.
+// 2. 문자열도 숫자로 변환하여 더합니다.
 // 다양하게 풀어보세요. for, while, filter, map, reduce...
-
-function typeCheck(value) {
-  return Object.prototype.toString.call(value).slice(8, -1);
-}
 
 let data = [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1'];
 let s = 0;
@@ -140,7 +138,104 @@ for (const i of data) {
 }
 s;
 
+////
+
+function typeCheck(value) {
+  return Object.prototype.toString.call(value).slice(8, -1);
+}
+
+let data = [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1'];
+let s = 0;
+for (const i of data) {
+  if (typeCheck(i) === 'Number') {
+    s += i;
+  }
+}
+s;
+
+let data = [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1'];
+let s = 0;
 let i = 0;
 while (i < data.length) {
-  console.log(i);
+  if (typeof data[i] === 'number') {
+    s += data[i];
+  }
+  i++;
+}
+s;
+
+let data = [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1'];
+data.filter((v) => typeof v === 'number').reduce((a, c) => a + c, 0);
+
+// 난이도가 있습니다.
+let data = [10, '5', 4, '7', 9, '3', 2, '5', 4, '7', '4', '2', '1'];
+// number인 것만 더하는 것
+data.reduce((a, c) => (typeof c === 'number' ? a + c : a), 0);
+// number와 string 모두 더하는 것이었다면?
+data.reduce((a, c) => a + parseInt(c), 0);
+// 엔터를 이렇게 칠 수 있기 때문에 가독성 차원에서 이점을 볼 수 있습니다.
+data.map((v) => parseInt(v)).reduce((a, c) => a + c, 0);
+
+data.reduce((a, c) => (c === parseFloat(c) ? a + c : a), 0);
+
+// 모음 제거
+// https://school.programmers.co.kr/learn/courses/30/lessons/120849
+
+new Array('hello world'); // ['hello world']
+
+'hello world'.split('');
+Array.from('hello world');
+
+// v in 'aeiou' 이렇게 쓰고 싶을 때에는!
+// includes
+
+Array.from('hello world').filter((v) => !['a', 'e', 'i', 'o', 'u'].includes(v));
+
+Array.from('hello world')
+  .filter((v) => !['a', 'e', 'i', 'o', 'u'].includes(v))
+  .join('');
+
+function solution(my_string) {
+  return my_string.replace(/[aeiou]/g, '');
+}
+
+function solution(my_string) {
+  result = '';
+  for (const s of my_string) {
+    if (['a', 'e', 'i', 'o', 'u'].includes(s)) {
+      continue;
+    }
+    result += s;
+  }
+  return result;
+}
+
+solution('hello');
+
+// 용돈은 매년 2배씩 오릅니다.
+// 올해 받은 용돈은 10000원입니다.
+// 나이는 8살입니다.
+// 30만원 이상이 되면 용돈이 더이상 오르지 않습니다.
+// for와 coninue 문법을 써서 8살부터 35살까지 받은 용돈의 총합을 구하세요.
+
+result = 0;
+money = 10000;
+for (let age = 8; age < 36; age++) {
+  result += money;
+  if (money >= 300000) {
+    continue;
+  }
+  money = money * 2;
+}
+result;
+
+// isNaN을 사용하면 숫자는 false가 나옵니다.
+// 문자는 true가 나옵니다.
+
+function solution(my_string) {
+  my_string
+    .split('')
+    .filter((v) => !isNaN(v))
+    .map((v) => v * 1)
+    .sort((a, b) => a - b);
 }

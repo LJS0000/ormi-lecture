@@ -35,17 +35,17 @@
 // arr8.sort((a, b) => b - a) //내림차순
 // console.log(arr8)
 
-const arr8 = [1, 11, 2, 3, 4, 5]
+const arr8 = [1, 11, 2, 3, 4, 5];
 arr8.forEach((v, i) => {
-  console.log(v, i)
-})
+  console.log(v, i);
+});
 
-const arr11 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const newArr = arr11.filter((el) => el % 2 === 0)
+const arr11 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const newArr = arr11.filter((el) => el % 2 === 0);
 
-console.log(newArr)
+console.log(newArr);
 
-console.log([1, 2, 3, 4].map((x) => x ** 2))
+console.log([1, 2, 3, 4].map((x) => x ** 2));
 
 const people = [
   {
@@ -56,4 +56,4 @@ const people = [
     name: 'lee',
     age: 10,
   },
-]
+];
