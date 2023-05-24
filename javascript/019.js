@@ -44,3 +44,16 @@ const arr11 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const newArr = arr11.filter((el) => el % 2 === 0)
 
 console.log(newArr)
+
+console.log([1, 2, 3, 4].map((x) => x ** 2))
+
+const people = [
+  {
+    name: 'jisu',
+    age: 10,
+  },
+  {
+    name: 'lee',
+    age: 10,
+  },
+]
