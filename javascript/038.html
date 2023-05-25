@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        display: flex;
+        width: 1000px;
+        margin: auto;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+      .flex-item {
+        width: 30%;
+        padding: 10px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+      }
+      .study_status {
+        padding: 5px;
+        margin-bottom: 5px;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        width: fit-content;
+      }
+      .thumbnail {
+        width: 100%;
+        flex: 1;
+      }
+      .title-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 실제로는 통신으로 받아왔다고 가정합니다. -->
+    <script src="data2.js"></script>
+    <script>
+      s = '';
+      console.log(data);
+      for (const i of data) {
+        s += `
+        <div class="flex-item">
+            <p class="study_status">${i.study_status.name}</p>
+            <img class="thumbnail" src="${i.thumbnail}" alt=""/>
+            <div class='title-box'>
+                <p class="difficulty">${i.difficulty.name}</p>
+                <h2 class="title">${i.title}</h2>
+            </div>
+        </div>
+        `;
+        console.log(i);
+      }
+      document.querySelector('body').innerHTML = s;
+    </script>
+  </body>
+</html>
