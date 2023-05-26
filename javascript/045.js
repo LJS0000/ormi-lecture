@@ -63,3 +63,9 @@ fetch('http://testtttt.api.weniv.co.kr/mall')
     alert('서버가 멈췄습니다. 최대한 빠르게 복구하도록 하겠습니다.');
     document.write('서버가 멈췄습니다. 최대한 빠르게 복구하도록 하겠습니다.');
   });
+
+//////////
+
+fetch(
+  'https://raw.githubusercontent.com/paullabkorea/coronaVaccinationStatus/main/data/data.json'
+);
