@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input {
+        display: block;
+        width: 300px;
+        height: 30px;
+        margin: 10px 0;
+      }
+
+      textarea {
+        display: block;
+        width: 300px;
+        height: 100px;
+        margin-bottom: 10px;
+        resize: none;
+      }
+
+      button {
+        display: block;
+        width: 300px;
+        height: 30px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <input type="text" name="" id="title" />
+        <textarea name="" id="content" cols="30" rows="10"></textarea>
+        <button onclick="saveNote()">메모</button>
+      </section>
+      <section id="display"></section>
+    </main>
+    <script>
+      let allMemo = JSON.parse(localStorage.getItem('allMemo'));
+      allMemo = allMemo ?? [];
+      render();
+
+      function saveNote() {
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+
+        allMemo.push({ title, content, len: allMemo.length });
+
+        localStorage.setItem('allMemo', JSON.stringify(allMemo));
+
+        inputIntialize();
+        render();
+      }
+
+      function inputIntialize() {
+        document.getElementById('title').value = null;
+        document.getElementById('content').value = null;
+      }
+
+      function render() {
+        const display = document.getElementById('display');
+        display.innerHTML = '';
+
+        for (const item of allMemo) {
+          const saveTitle = document.createElement('h2');
+          const saveContent = document.createElement('p');
+          const saveId = document.createElement('p');
+          const deleteMemoBtn = document.createElement('button');
+          const editMemoBtn = document.createElement('button');
+
+          // 제목
+          saveTitle.textContent = item.title;
+          saveTitle.setAttribute('id', `title${item.len}`);
+          // 내용
+          saveContent.textContent = item.content;
+          saveContent.setAttribute('id', `content${item.len}`);
+          // ID값
+          saveId.textContent = item.len + 1;
+          // 삭제 버튼
+          deleteMemoBtn.textContent = '삭제';
+          deleteMemoBtn.setAttribute('id', `delete${item.len}`);
+          deleteMemoBtn.setAttribute('onclick', 'remove()');
+          // 수정 버튼
+          editMemoBtn.textContent = '수정';
+          editMemoBtn.setAttribute('id', `edit${item.len}`);
+          editMemoBtn.setAttribute('onclick', `edit()`);
+
+          display.appendChild(saveId);
+          display.appendChild(saveTitle);
+          display.appendChild(saveContent);
+          display.appendChild(deleteMemoBtn);
+          display.appendChild(editMemoBtn);
+        }
+      }
+
+      function remove() {
+        // console.log(event.srcElement.id);
+        // console.log(allMemo);
+        const idx = allMemo.find(
+          (item) => `delete${item.len}` == event.srcElement.id
+        );
+        if (idx) {
+          allMemo.splice(
+            allMemo.findIndex((item) => item.len == idx.len),
+            1
+          );
+        }
+        localStorage.setItem('allMemo', JSON.stringify(allMemo));
+        render();
+      }
+
+      function edit() {
+        const idx = allMemo.find(
+          (item) => `edit${item.len}` == event.srcElement.id
+        );
+        if (event.target.innerText === '수정') {
+          // 수정 완료 버튼으로 바꿈
+          event.target.innerText = '수정 완료';
+
+          // 값을 유지한 채 title을 input으로 전환
+          const title = document.getElementById(`title${idx.len}`);
+          const newTitle = document.createElement('input');
+          newTitle.setAttribute('id', `new-title${idx.len}`);
+          newTitle.setAttribute('value', `${idx.title}`);
+          title.replaceWith(newTitle);
+
+          // 값을 유지한 채 content를 textarea로 전환
+          const content = document.getElementById(`content${idx.len}`);
+          const newContent = document.createElement('textarea');
+          newContent.setAttribute('id', `new-content${idx.len}`);
+          newContent.textContent = idx.content;
+          content.replaceWith(newContent);
+        } else {
+          //수정 완료일 때 할 코드
+          const editTitle = document.getElementById(
+            `new-title${idx.len}`
+          ).value;
+          const editContent = document.getElementById(
+            `new-content${idx.len}`
+          ).value;
+          idx.title = editTitle;
+          idx.content = editContent;
+          localStorage.setItem('allMemo', allMemo);
+
+          //렌더를 else 구문에 넣어서 토글
+          render();
+        }
+      }
+    </script>
+  </body>
+</html>
